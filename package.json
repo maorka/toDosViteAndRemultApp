@@ -6,7 +6,7 @@
     "start": "tsx src/server",
     "dev": "vite",
     "dev-node": "tsx watch src/server",
-    "build": "npm install && tsc && vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
