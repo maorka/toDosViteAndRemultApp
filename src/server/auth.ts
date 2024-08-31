@@ -7,6 +7,8 @@ const validUsers: UserInfo[]=[
 {id:"1",name:"Nati"},
 {id:"2",name:"Nir"},
 {id:"3",name:"Maor"},
+{id:"4",name:"Eden"},
+
 ];
 
 export const auth = Router();
