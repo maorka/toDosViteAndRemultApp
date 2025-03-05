@@ -85,6 +85,11 @@ function App() {
                 onChange={(e) => setCompleted(e.target.checked)}
               />
               <textarea
+                style={{
+                  border: '10px  black',
+                  padding: '10px',
+                  borderRadius: '25px'
+                }}
                 value={task.title}
                 onChange={(e) => setTitle(e.target.value)}
                 rows={4} // מספר השורות שניתן לראות
