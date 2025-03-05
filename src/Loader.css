@@ -1,0 +1,7 @@
+/* filepath: /d:/גיבוי-לימודים/לימודים/Bootcamp_fullstack/vite_project/react_test_project/src/Loader.css */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

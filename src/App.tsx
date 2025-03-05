@@ -4,26 +4,36 @@ import { Task } from "./shared/task";
 import { TaskController } from './shared/TasksControoler';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from './Loader';
+import './Loader.css';
 
 const taskRepo = remult.repo(Task); // repository pattern
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState(""); // input for new task
+  const [loading, setLoading] = useState(true); // state for loading
 
   useEffect(() => {
-    return taskRepo.liveQuery({
-      // where:{
-      //   owner:[remult.user?.id!],
-      // }
-    }).subscribe(info => setTasks(info.applyChanges));
+    const fetchData = async () => {
+      try {
+        const tasks = await taskRepo.find();
+        setTasks(tasks);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   async function addTask(e: FormEvent<HTMLFormElement>) {
     e.preventDefault(); // prevent refreshing
     try {
       const newTask = await taskRepo.insert({ title: newTaskTitle }); // add new task
-      // setTasks((tasks) => [...tasks, newTask]);
+      setTasks((tasks) => [...tasks, newTask]);
       setNewTaskTitle("");
       toast.success("Task saved!");
     } catch (error: any) {
@@ -33,6 +43,10 @@ function App() {
 
   async function setAllCompleted(completed: boolean) {
     await TaskController.setAllCompleted(completed); //
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   return (
